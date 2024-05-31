@@ -127,7 +127,6 @@ class LinkedList
         iterator erase(iterator pos); 
         iterator erase(iterator f, iterator l);
         void remove(const_reference val);
-        // size_type remove_if(isOdd func);
     public:
         const_iterator cbegin() const;
         const_iterator cend() const;
