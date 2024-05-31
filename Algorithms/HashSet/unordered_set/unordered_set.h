@@ -1,7 +1,6 @@
 #ifndef UNORDERED_SET_H
 #define UNORDERED_SET_H
 #include "LinkedList.h"
-#include <initializer_list>
 
 class unordered_set
 {
