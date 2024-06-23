@@ -1,37 +1,6 @@
 #include <iostream>
 
-
-void countingSort(int *arr, int size)
-{
-    int max = arr[0];
-    for(int i = 1; i < size; ++i)
-    {
-        if(max < arr[i])
-        {
-            max = arr[i];
-        }
-    }
-    
-    int *count = new int[max + 1];
-
-    for(int i = 0; i < size; ++i)
-    {
-        ++count[arr[i]];
-    }
-
-    int index = 0;
-    for(int i = 0; i <= max; ++i)
-    {
-        while(count[i]--)
-        {
-            arr[index++] = i;
-        }
-    }
-
-    delete []count;
-}
-
-void countingSort2(int* arr, int size)
+void countingSort(int* arr, int size)
 {
     int max = arr[0];
     for(int i = 1; i < size; ++i)
@@ -82,7 +51,7 @@ int main()
         std::cin >> arr[i];
     } 
 
-    countingSort2(arr,size);
+    countingSort(arr,size);
 
     for(int i = 0; i < size; ++i)
     {
