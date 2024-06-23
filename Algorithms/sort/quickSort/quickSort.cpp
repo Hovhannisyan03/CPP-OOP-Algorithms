@@ -20,7 +20,7 @@ void medianOfthree(int *arr, int first, int middle, int last)
 
 }
 
-int partitionMOF(int *arr, int first, int last)
+int partitionMOT(int *arr, int first, int last)
 {
     int middle = first + (last - first) / 2;
     medianOfthree(arr, first, middle, last);
@@ -57,9 +57,7 @@ int partitionMOF(int *arr, int first, int last)
     }
 
     std::swap(arr[pivotIndex], arr[leftIndex]);
-    pivotIndex = leftIndex;
-
-    return pivotIndex;
+    return leftIndex;
 }
 
 // ==================================== Pivot as Last ====================================
@@ -68,20 +66,32 @@ int partitionMOF(int *arr, int first, int last)
 int partitionLast(int *arr, int first, int last)
 {
     int pivot = arr[last];
-    int leftIndex = first - 1;      
-    int rightIndex = last;      
+    int leftIndex = first;      
+    int rightIndex = last - 1;      
 
-    while (true)
+    bool done = false;
+    while (!done)
     {
-        while (arr[++leftIndex] < pivot);
-
-        while (rightIndex > first && arr[--rightIndex] > pivot);
-
-        if (leftIndex >= rightIndex)
-        { 
-            break;
+        while (arr[leftIndex] < pivot)
+        {
+            ++leftIndex;
         }
-        std::swap(arr[leftIndex], arr[rightIndex]);
+
+        while (arr[rightIndex] > pivot)
+        {
+            --rightIndex;
+        }
+
+        if (leftIndex < rightIndex)
+        { 
+            std::swap(arr[leftIndex], arr[rightIndex]);
+            ++leftIndex;
+            --rightIndex;
+        }
+        else
+        {
+            done = true;
+        }
     }
 
     std::swap(arr[leftIndex], arr[last]);
@@ -93,20 +103,32 @@ int partitionLast(int *arr, int first, int last)
 int partitionFirst(int *arr, int first, int last)
 {
     int pivot = arr[first];
-    int leftIndex = first;      
-    int rightIndex = last + 1;      
+    int leftIndex = first + 1;      
+    int rightIndex = last;      
 
-    while (true)
+    bool done = false;
+    while (!done)
     {
-        while (arr[++leftIndex] < pivot);
-
-        while (rightIndex > first && arr[--rightIndex] > pivot);
-
-        if (leftIndex >= rightIndex)
-        { 
-            break;
+        while(arr[leftIndex] < pivot)
+        {
+            ++leftIndex;
         }
-        std::swap(arr[leftIndex], arr[rightIndex]);
+
+        while(arr[rightIndex] > pivot)
+        {
+            --rightIndex;
+        }
+
+        if (leftIndex < rightIndex)
+        { 
+            std::swap(arr[leftIndex], arr[rightIndex]);
+            ++leftIndex;
+            --rightIndex;
+        }
+        else
+        {
+            done = true;
+        }
     }
 
     std::swap(arr[rightIndex], arr[first]);
@@ -122,22 +144,34 @@ int random_pivot(int first, int last)
 int partitionRandom(int *arr, int first, int last)
 {
     int pivotIndex = random_pivot(first,last);
-    int pivot = arr[pivotIndex];
     std::swap(arr[pivotIndex], arr[last]);
-    int leftIndex = first - 1;      
-    int rightIndex = last;      
+    int pivot = arr[last];
+    int leftIndex = first;      
+    int rightIndex = last - 1;      
 
-    while (true)
+    bool done = false;
+    while (!done)
     {
-        while (arr[++leftIndex] < pivot);
-
-        while (rightIndex > first && arr[--rightIndex] > pivot);
-
-        if (leftIndex >= rightIndex)
-        { 
-            break;
+        while (arr[leftIndex] < pivot)
+        {
+            ++leftIndex;
         }
-        std::swap(arr[leftIndex], arr[rightIndex]);
+
+        while (arr[rightIndex] > pivot)
+        {
+            --rightIndex;
+        }
+
+        if (leftIndex < rightIndex)
+        { 
+            std::swap(arr[leftIndex], arr[rightIndex]);
+            ++leftIndex;
+            --rightIndex;
+        }
+        else
+        {
+            done = true;
+        }
     }
 
     std::swap(arr[leftIndex], arr[last]);
@@ -148,7 +182,7 @@ void quickSort(int *arr, int first, int last)
 {
     if(first < last)
     {
-        int pivotIndex = partitionRandom(arr,first,last);
+        int pivotIndex = partitionMOT(arr,first,last);
         quickSort(arr, first, pivotIndex - 1);
         quickSort(arr, pivotIndex + 1, last);
     }
