@@ -8,7 +8,7 @@ template <typename T>
 class self_organizing_list
 {
     public:
-        using value_type = int;
+        using value_type = T;
         using reference = value_type&;
         using const_reference = const value_type&;
         using size_type = std::size_t;
