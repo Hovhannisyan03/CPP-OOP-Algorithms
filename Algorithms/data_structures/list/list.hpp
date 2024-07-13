@@ -498,6 +498,51 @@ void list<T>::reverse()
     m_head = prev;
 }
 
+
+template <typename T>
+void list<T>::print() const
+{
+    Node* curr = m_head;
+    while(curr)
+    {
+        std::cout << curr->m_data << " ";
+        curr = curr->m_next;
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+void list<T>::merge(const list& other)
+{
+    if (this == &other) 
+    {
+        return;
+    }
+
+    if (!other.m_head) 
+    {
+        return;
+    }
+
+    if (!m_head) 
+    {
+        m_head = other.m_head;
+        m_head->m_prev = nullptr;
+        other.m_head = nullptr;  
+        return;
+    }
+    Node* curr = m_head;
+    while(curr->m_next)
+    {
+        curr = curr->m_next;
+    }
+    curr->m_next = other.m_head;
+    other.m_head->m_prev = curr;
+
+    other.m_head = nullptr;
+}
+
+
 template <typename T>
 typename list<T>::size_type list<T>::size() const
 {
