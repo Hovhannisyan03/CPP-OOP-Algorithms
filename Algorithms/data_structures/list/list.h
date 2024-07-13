@@ -95,6 +95,8 @@ class list
 
         size_type remove(const_reference val); 
         void reverse(); 
+        void print()const;
+        void merge(const list& other);
 
         iterator find(const_reference elem);
         iterator rfind(const_reference elem);
