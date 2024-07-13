@@ -507,6 +507,70 @@ void forward_list<T>::reverse()
 }
 
 template <typename T>
+void forward_list<T>::merge(const forward_list& other)
+{   
+    if(this == &other)
+    {
+        return;
+    }
+    if(!m_head)
+    {
+        m_head = other.m_head;
+        return;
+    }
+    Node* current = m_head;
+    while(current->m_next)
+    {
+        current = current->m_next;
+    }
+    current->m_next = other.m_head;
+}
+
+template <typename T>
+void forward_list<T>::print() const
+{
+    Node* temp = m_head;
+    while(temp)
+    {
+        std::cout << temp->m_data << " ";
+        temp = temp->m_next; 
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+void forward_list<T>::sort()
+{
+    if(!m_head || !m_head->m_next)
+    {
+        return;
+    }
+    Node* current = m_head;
+    Node* sorted = nullptr;
+    while(current)
+    {
+        Node* next = current->m_next;
+        if (!sorted || sorted->m_data >= current->m_data) 
+        {
+            current->m_next = sorted;
+            sorted = current;
+        }
+        else 
+        {
+            Node* temp = sorted;
+            while (temp->m_next && temp->m_next->m_data < current->m_data) 
+            {
+                temp = temp->m_next;
+            }
+            current->m_next = temp->m_next;
+            temp->m_next = current;
+        }
+        current = next;
+    }  
+    m_head = sorted;
+}
+
+template <typename T>
 typename forward_list<T>::iterator forward_list<T>::insert(iterator pos, size_type size, const_reference val)
 {
     while(size != 0)
