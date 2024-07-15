@@ -507,7 +507,7 @@ void forward_list<T>::reverse()
 }
 
 template <typename T>
-void forward_list<T>::merge(const forward_list& other)
+void forward_list<T>::merge(forward_list& other)
 {   
     if(this == &other)
     {
@@ -516,6 +516,7 @@ void forward_list<T>::merge(const forward_list& other)
     if(!m_head)
     {
         m_head = other.m_head;
+        other.m_head = nullptr;
         return;
     }
     Node* current = m_head;
@@ -524,6 +525,7 @@ void forward_list<T>::merge(const forward_list& other)
         current = current->m_next;
     }
     current->m_next = other.m_head;
+    other.m_head = nullptr;
 }
 
 template <typename T>
