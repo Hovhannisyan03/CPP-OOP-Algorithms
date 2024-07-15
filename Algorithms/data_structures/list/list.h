@@ -97,6 +97,7 @@ class list
         void reverse(); 
         void print()const;
         void merge(const list& other);
+        void unique();
 
         iterator find(const_reference elem);
         iterator rfind(const_reference elem);
