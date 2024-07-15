@@ -586,19 +586,16 @@ void list<T>::merge(list& other)
     if (!m_head) 
     {
         m_head = other.m_head;
-        m_head->m_prev = nullptr;
-        other.m_head = nullptr;  
-        return;
+        m_tail = other.m_tail; 
     }
-    Node* curr = m_head;
-    while(curr->m_next)
+    else
     {
-        curr = curr->m_next;
-    }
-    curr->m_next = other.m_head;
-    other.m_head->m_prev = curr;
-
+        m_tail->m_next = other.m_head;
+        other.m_head->m_prev = m_tail;
+        m_tail = other.m_tail;
+    }        
     other.m_head = nullptr;
+    other.m_tail = nullptr;
 }
 
 
