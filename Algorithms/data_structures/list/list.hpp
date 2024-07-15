@@ -498,40 +498,75 @@ void list<T>::reverse()
     m_head = prev;
 }
 
+
 template <typename T>
-void list<T>::reverse()
+void list<T>::unique()
 {
-    if (!m_head || !m_head->m_next) 
+    if(!m_head)
     {
         return;
     }
-
-    Node* curr = m_head;
-    Node* prev = nullptr;
-
-    while (curr) 
-    {
-        Node* next = curr->m_next;
-        curr->m_next = prev;       
-        curr->m_prev = next;       
-        prev = curr;               
-        curr = next;               
-    }
-
-    m_tail = m_head;
-    m_head = prev;
-}
-
-
-template <typename T>
-void list<T>::print() const
-{
     Node* curr = m_head;
     while(curr)
     {
-        std::cout << curr->m_data << " ";
-        curr = curr->m_next;
+        if(curr == m_head)
+        {
+            curr = curr->m_next;
+            continue;
+        }
+        Node* newTemp = m_head;
+        size_type flag = false;
+        while(newTemp != curr)
+        {
+            if(curr->m_data == newTemp->m_data)
+            {
+                Node* del = curr;
+                curr->m_prev->m_next = curr->m_next;
+                if(curr->m_next)
+                {
+                    curr->m_next->m_prev = curr->m_prev;
+                    m_tail = curr->m_prev;
+                }
+                curr = curr->m_next;
+                flag  = true;
+                delete del;
+                break;
+            }
+            newTemp = newTemp->m_next;
+        }
+        if(!flag)
+        {
+            curr = curr->m_next;
+        }
     }
+    if(m_tail)
+    {
+        m_tail->m_next = nullptr;
+    }
+}
+
+template <typename T>
+void list<T>::print(bool reverse ) const
+{
+    if(!reverse)
+    {   
+        Node* curr = m_head;
+        while(curr)
+        {
+            std::cout << curr->m_data << " ";
+            curr = curr->m_next;
+        }
+    }
+    else
+    {
+        Node* curr = m_tail;
+        while(curr)
+        {
+            std::cout << curr->m_data << " ";
+            curr = curr->m_prev;
+        }
+    }
+    
     std::cout << std::endl;
 }
 
