@@ -96,7 +96,7 @@ class list
         size_type remove(const_reference val); 
         void reverse(); 
         void print(bool reverse = false) const;
-        void merge(const list& other);
+        void merge(list& other);
         void unique();
 
         iterator find(const_reference elem);
