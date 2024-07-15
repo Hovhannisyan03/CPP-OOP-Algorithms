@@ -63,6 +63,7 @@ class forward_list
         void merge(const forward_list& other);
         void print() const;
         void sort();
+        void unique();
             
         void push_front(const_reference elem); 
         void pop_front(); 
