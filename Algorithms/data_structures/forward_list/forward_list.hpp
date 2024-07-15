@@ -571,6 +571,43 @@ void forward_list<T>::sort()
 }
 
 template <typename T>
+void forward_list<T>::unique()
+{
+    if(!m_head || !m_head->m_next)
+    {
+        return;
+    }
+    Node* temp = m_head->m_next;
+    Node* unique_tmp = m_head;
+    unique_tmp->m_next = nullptr;
+    Node* prev = nullptr;
+    while(temp)
+    {
+        bool flag = false;
+        while(unique_tmp)
+        {
+            if(temp->m_data == unique_tmp->m_data)
+            {
+                Node* del = temp;
+                temp = temp->m_next;
+                flag = true;
+                delete del;
+                break;
+            }
+            prev = unique_tmp;
+            unique_tmp = unique_tmp->m_next;
+        }
+        if(!flag)
+        {   
+            prev->m_next = temp;
+            prev = prev->m_next;
+            temp = temp->m_next;
+            prev->m_next = nullptr;
+        }
+        unique_tmp = m_head;
+    }
+}
+template <typename T>
 typename forward_list<T>::iterator forward_list<T>::insert(iterator pos, size_type size, const_reference val)
 {
     while(size != 0)
