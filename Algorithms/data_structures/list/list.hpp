@@ -498,6 +498,30 @@ void list<T>::reverse()
     m_head = prev;
 }
 
+template <typename T>
+void list<T>::reverse()
+{
+    if (!m_head || !m_head->m_next) 
+    {
+        return;
+    }
+
+    Node* curr = m_head;
+    Node* prev = nullptr;
+
+    while (curr) 
+    {
+        Node* next = curr->m_next;
+        curr->m_next = prev;       
+        curr->m_prev = next;       
+        prev = curr;               
+        curr = next;               
+    }
+
+    m_tail = m_head;
+    m_head = prev;
+}
+
 
 template <typename T>
 void list<T>::print() const
