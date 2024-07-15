@@ -60,7 +60,7 @@ class forward_list
         void resize(size_type s, const_reference init = value_type());
         void clear() noexcept;
         void reverse();
-        void merge(const forward_list& other);
+        void merge(forward_list& other);
         void print() const;
         void sort();
         void unique();
