@@ -514,11 +514,11 @@ void list<T>::unique()
             curr = curr->m_next;
             continue;
         }
-        Node* newTemp = m_head;
+        Node* unique_temp = m_head;
         size_type flag = false;
-        while(newTemp != curr)
+        while(unique_temp != curr)
         {
-            if(curr->m_data == newTemp->m_data)
+            if(curr->m_data == unique_temp->m_data)
             {
                 Node* del = curr;
                 curr->m_prev->m_next = curr->m_next;
@@ -532,7 +532,7 @@ void list<T>::unique()
                 delete del;
                 break;
             }
-            newTemp = newTemp->m_next;
+            unique_temp = unique_temp->m_next;
         }
         if(!flag)
         {
