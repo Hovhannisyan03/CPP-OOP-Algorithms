@@ -512,7 +512,7 @@ void list<T>::print() const
 }
 
 template <typename T>
-void list<T>::merge(const list& other)
+void list<T>::merge(list& other)
 {
     if (this == &other) 
     {
