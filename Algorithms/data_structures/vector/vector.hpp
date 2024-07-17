@@ -808,29 +808,29 @@ typename vector<T>::reference vector<T>::iterator::operator[](size_type pos) con
     return this->m_ptr[pos];
 }
 
-    template <typename T>
-    typename vector<T>::iterator vector<T>::begin()
-    {
-        return iterator(m_arr);
-    }
+template <typename T>
+typename vector<T>::iterator vector<T>::begin()
+{
+    return iterator(m_arr);
+}
 
-    template <typename T>
-    typename vector<T>::iterator vector<T>::end() noexcept
-    {
-        return iterator(m_arr + m_size);
-    }
+template <typename T>
+typename vector<T>::iterator vector<T>::end() noexcept
+{
+    return iterator(m_arr + m_size);
+}
 
-    template <typename T>
-    typename vector<T>::const_iterator vector<T>::begin() const
-    {
-        return const_iterator(m_arr);
-    }
+template <typename T>
+typename vector<T>::const_iterator vector<T>::begin() const
+{
+    return const_iterator(m_arr);
+}
 
-    template <typename T>
-    typename vector<T>::const_iterator vector<T>::end() const noexcept
-    {
-        return const_iterator(m_arr + m_size);
-    }
+template <typename T>
+typename vector<T>::const_iterator vector<T>::end() const noexcept
+{
+    return const_iterator(m_arr + m_size);
+}
 
 // ================================================== Const Reverse Iterator ==================================================
 template <typename T>
