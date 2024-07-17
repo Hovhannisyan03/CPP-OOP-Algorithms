@@ -498,6 +498,60 @@ void list<T>::reverse()
     m_head = prev;
 }
 
+template <typename T>
+void list<T>::sort()
+{
+    if (!m_head || !m_head->m_next) 
+    {
+        return;
+    }
+    Node* sorted_head = nullptr;
+    Node* sorted_tail = nullptr;
+    Node* temp = m_head;
+    while(temp)
+    {   
+        Node* next = temp->m_next;
+        if(!sorted_head || sorted_head->m_data >= temp->m_data)
+        {
+            temp->m_next = sorted_head;
+            if (sorted_head) 
+            {
+                sorted_head->m_prev = temp;
+            }
+            sorted_head = temp;
+            temp->m_prev = nullptr;
+            if (!sorted_tail) 
+            {
+                sorted_tail = temp; 
+            }
+        }
+        else if(sorted_tail->m_data <= temp->m_data)
+        {
+            temp->m_next = nullptr;
+            temp->m_prev = sorted_tail;
+            sorted_tail->m_next = temp;
+            sorted_tail = temp;
+        }
+        else
+        {
+            Node* temp2 = sorted_head;
+            while(temp2->m_next && temp2->m_next->m_data < temp->m_data)
+            {
+                temp2 = temp2->m_next;
+            }
+            temp->m_next = temp2->m_next;
+            temp->m_prev = temp2;
+            if (temp2->m_next) 
+            {
+                temp2->m_next->m_prev = temp;
+            }
+            temp2->m_next = temp;
+        }
+        temp = next;
+    }
+    m_head = sorted_head;
+    m_tail = sorted_tail;
+}
 
 template <typename T>
 void list<T>::unique()
