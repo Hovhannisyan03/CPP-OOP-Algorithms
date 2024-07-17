@@ -95,6 +95,7 @@ class list
 
         size_type remove(const_reference val); 
         void reverse(); 
+        void sort();
         void print(bool reverse = false) const;
         void merge(list& other);
         void unique();
