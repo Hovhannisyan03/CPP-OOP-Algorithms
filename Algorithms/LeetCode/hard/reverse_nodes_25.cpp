@@ -16,63 +16,62 @@ public:
         {
             return head;
         }
-        ListNode* rev_head = nullptr;
-        ListNode* rev_tail = nullptr;
-        ListNode* organized = nullptr;
-        int count = 0;
+        int temp_k = 0;
+        bool flag = true;
         ListNode* curr = head;
+        ListNode* first_head = nullptr;
+        ListNode* curr_head = nullptr;
+        ListNode* curr_tail_next = nullptr;
         while(curr)
-        {
-            rev_head = curr;
-            rev_tail = curr;
-            curr = curr->next;
-            int k_cpy = k;
-            while(k_cpy - 1 > 0 && curr)
+        {   
+            if(flag)
             {
-                rev_tail = rev_tail->next;
-                curr = curr->next;
-                --k_cpy;
-            }
-            if(count != 0 && k_cpy - 1 == 0)
-            {
-                while(organized->next != rev_head)
-                {
-                    organized = organized->next;
-                }
-                organized->next = rev_tail;
-            }
-            if(rev_tail && k_cpy - 1 == 0)
-            {
-                if(count == 0)
-                {
-                    head = reverseList(rev_head, rev_tail, curr);
-                    organized = head;
-                    ++count;
-                }
-                else
-                {
-                    organized = reverseList(rev_head, rev_tail, curr);
-                }
+                first_head = curr;
             }
             else
             {
+                curr_head = curr;
+            }
+            temp_k = k;
+            while(temp_k - 1 != 0 && curr)
+            {
+                --temp_k;
+                curr = curr->next;
+            }
+            if(!curr)
+            {
                 break;
             }
+
+            curr_tail_next = curr->next;
+            curr->next = nullptr;
+            if(flag)
+            {
+                head = reverse(first_head,curr_tail_next);
+                flag = false;
+            }
+            else
+            {
+                first_head->next = reverse(curr_head,curr_tail_next);
+                first_head = curr_head;
+            }
+            curr = curr_tail_next;
+
         }
         return head;
     }
 
 private:
-    ListNode* reverseList(ListNode* head, ListNode* tail, ListNode* tail_next)
+    ListNode* reverse(ListNode* head, ListNode* tail_next)
     {
-        ListNode* end = tail_next;
         ListNode* prev = tail_next;
-        while(head != end)
+        ListNode* curr = head;
+        while(curr)
         {
-            ListNode* next = head->next;
-            head->next = prev;
-            prev = head;
-            head = next;
+            ListNode* next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
 
         return prev;//reverse head
