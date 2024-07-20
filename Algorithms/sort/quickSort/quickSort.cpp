@@ -34,12 +34,12 @@ int partitionMOT(int *arr, int first, int last)
     bool done = false;
     while (!done)
     {
-        while (arr[leftIndex] < pivot)
+        while (arr[leftIndex] < pivot && leftIndex <= rightIndex)
         {
             ++leftIndex;
         }
 
-        while (arr[rightIndex] > pivot)
+        while (arr[rightIndex] > pivot && leftIndex <= rightIndex)
         {
             --rightIndex;
         }
@@ -109,12 +109,12 @@ int partitionFirst(int *arr, int first, int last)
     bool done = false;
     while (!done)
     {
-        while(arr[leftIndex] < pivot)
+        while(arr[leftIndex] < pivot && leftIndex <= rightIndex)
         {
             ++leftIndex;
         }
 
-        while(arr[rightIndex] > pivot)
+        while(arr[rightIndex] > pivot && leftIndex <= rightIndex)
         {
             --rightIndex;
         }
@@ -152,12 +152,12 @@ int partitionRandom(int *arr, int first, int last)
     bool done = false;
     while (!done)
     {
-        while (arr[leftIndex] < pivot)
+        while (arr[leftIndex] < pivot && leftIndex <= rightIndex)
         {
             ++leftIndex;
         }
 
-        while (arr[rightIndex] > pivot)
+        while (arr[rightIndex] > pivot && leftIndex <= rightIndex)
         {
             --rightIndex;
         }
