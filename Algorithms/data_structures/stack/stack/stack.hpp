@@ -30,7 +30,13 @@ my_std::stack<T,N>::stack(std::initializer_list<value_type> range) : m_arr(N), m
 }
 
 template <typename T, int N>
-my_std::stack<T,N>::~stack(){}
+my_std::stack<T,N>::~stack()
+{
+    while(!empty())
+    {
+        pop();
+    }
+}
 
 
 template <typename T, int N>
