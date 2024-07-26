@@ -3,53 +3,56 @@
 
 #include <iostream>
 #include <initializer_list>
-#include "../forward_list/forward_list.h"  
+#include "../vector/vector.h"
 
-template <typename T>
-class queue
+namespace my_std
 {
- public:
-        using value_type = T;
-        using size_type = size_t;
-        using referance = value_type&;
-        using const_referance = const value_type&;
-
+    template <typename T,int N = 100>
+    class queue
+    {
     public:
-        queue();
-        queue(const queue& other);
-        queue(queue&& other) noexcept;
-        queue(std::initializer_list<value_type> range);
-        ~queue();
+            using value_type = T;
+            using size_type = size_t;
+            using referance = value_type&;
+            using const_referance = const value_type&;
 
-        const queue& operator=(const queue& other);
-        const queue& operator=(queue&& other) noexcept;
+        public:
+            queue();
+            queue(const queue& other);
+            queue(queue&& other) noexcept;
+            queue(std::initializer_list<value_type> range);
+            ~queue();
 
-    public:
-        referance front();
-        const_referance front() const;
+        public:
+            const queue& operator=(const queue& other);
+            const queue& operator=(queue&& other) noexcept;
 
-        referance back();
-        const_referance back() const;
+        public:
+            referance front();
+            const_referance front() const;
 
-    public:
-        bool empty() const;
-        size_type size() const;
+        public:
+            bool empty() const;
+            size_type size() const;
+            void print() const;
 
-    public:
-        void enqueue(const_referance val);
-        void dequeue();
+        public:
+            void enqueue(const_referance val);
+            void dequeue();
 
-    public:
-        bool operator==(const queue& other);
-        bool operator!=(const queue& other);
-        bool operator<(const queue& other);
-        bool operator<=(const queue& other);
-        bool operator>(const queue& other);
-        bool operator>=(const queue& other);
-
-    private:
-        forward_list<T> m_arr;
-};
-
+        public:
+            bool operator==(const queue& other);
+            bool operator!=(const queue& other);
+            bool operator<(const queue& other);
+            bool operator<=(const queue& other);
+            bool operator>(const queue& other);
+            bool operator>=(const queue& other);
+        private:
+            vector<T> m_arr;
+            int m_front;
+            int m_reArr;
+            int m_size;
+    };
+}
 #include "queue.hpp"
 #endif
