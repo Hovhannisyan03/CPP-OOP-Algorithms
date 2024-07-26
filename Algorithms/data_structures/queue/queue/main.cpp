@@ -2,12 +2,12 @@
 
 int main() 
 {
-    queue obj({4,5,2,23,6,64});
+    my_std::queue<int> obj({4,5,2,23,6,64});
     std::cout << obj.front() << std::endl;
     obj.dequeue();
     std::cout << obj.front() << std::endl;
 
-    queue obj2(obj);
+    my_std::queue<int> obj2(obj);
 
     bool b = obj == obj2;
     std::cout << b << std::endl;
