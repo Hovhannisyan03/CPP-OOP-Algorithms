@@ -39,6 +39,7 @@ my_std::stack<T,N>& my_std::stack<T,N>::operator=(const stack& other)
     if(this != &other)
     {
         m_arr = other.m_arr;
+        m_size = other.m_size;
     }
 
     return *this;
@@ -50,8 +51,9 @@ my_std::stack<T,N>& my_std::stack<T,N>::operator=(stack&& other) noexcept
     if(this != &other)
     {
         m_arr = std::move(other.m_arr);
+        m_size = std::move(other.m_size());
+        other.m_size = -1;
     }
-
     return *this;
 }
 
