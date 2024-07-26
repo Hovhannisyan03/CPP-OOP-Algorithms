@@ -32,7 +32,13 @@ my_std::queue<T,N>::queue(std::initializer_list<value_type> range) : m_arr(N), m
 }
 
 template <typename T, int N>
-my_std::queue<T,N>::~queue(){}
+my_std::queue<T,N>::~queue()
+{
+    while(!empty())
+    {
+        dequeue();
+    }
+}
 
 template <typename T, int N>
 const typename my_std::queue<T,N>::queue& my_std::queue<T,N>::operator=(const queue& other)
