@@ -142,11 +142,7 @@ void my_std::stack<T,N>::pop()
 template <typename T, int N>
 typename my_std::stack<T,N>::size_type my_std::stack<T,N>::size() const
 {
-    if(m_size == -1)
-    {
-        return 0;
-    }
-    return m_size;
+    return m_size + 1;
 }
 
 template <typename T, int N>
