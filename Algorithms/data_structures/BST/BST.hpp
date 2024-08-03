@@ -246,7 +246,7 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_m
     }
     if(node->m_left)
     {
-        node = m_min_recursive(node->m_left);
+        return m_min_recursive(node->m_left);
     }
     return node;
 }
@@ -274,7 +274,7 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_m
     }
     else if(node->m_right)
     {
-        return node = m_max_recursive(node->m_right);
+        return m_max_recursive(node->m_right);
     }
     else 
     {
