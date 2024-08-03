@@ -606,14 +606,14 @@ void my_std::binary_search_tree<T>::m_postorder_iterative(Node* node) const
         return;
     }
     std::stack<Node*> s1;
-    std::stack<Node*> s2;
+    std::stack<int> s2;
     s1.push(node);
     while(!s1.empty())
     {
         Node* temp = s1.top();
         s1.pop();
 
-        s2.push(temp);
+        s2.push(temp->m_val);
         if(temp->m_left)
         {
             s1.push(temp->m_left);
@@ -626,7 +626,7 @@ void my_std::binary_search_tree<T>::m_postorder_iterative(Node* node) const
 
     while(!s2.empty())
     {
-        std::cout << (s2.top())->m_val << " ";
+        std::cout << s2.top() << " ";
         s2.pop();
     }
 }
@@ -650,6 +650,32 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_g
     {
         return node;
     }
+}
+
+template <typename T>
+void my_std::binary_search_tree<T>::m_level_order_iterative(Node* node) const
+{
+    if(!node)
+    {
+        return;
+    }
+    std::queue<Node*> q;
+    q.push(node);
+    while(!q.empty())
+    {
+        Node* temp = q.front();
+        q.pop();
+        std::cout << temp->m_val << " ";
+        if(temp->m_left)
+        {
+            q.push(temp->m_left);
+        }
+        if(temp->m_right)
+        {
+            q.push(temp->m_right);
+        }
+    }
+    std::cout << std::endl;
 }
 
 template <typename T>
