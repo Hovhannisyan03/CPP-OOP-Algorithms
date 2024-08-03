@@ -9,9 +9,11 @@ my_std::binary_search_tree<T>::Node::Node(value_type val) : m_val{val}, m_left{n
 template<typename T>
 my_std::binary_search_tree<T>::binary_search_tree() : m_root{nullptr}, m_size{0} {}
 
+template <typename T>
+my_std::binary_search_tree<T>::binary_search_tree(const_reference val) : m_root(new Node(val)), m_size{1} {}
+
 template<typename T>
 my_std::binary_search_tree<T>::binary_search_tree(const binary_search_tree& rhv) : m_root(m_copy_tree_recursive(rhv.m_root)), m_size{rhv.m_size}{}
-
 
 template<typename T>
 my_std::binary_search_tree<T>::binary_search_tree(std::initializer_list<value_type> init) : m_root(nullptr), m_size{init.size()}
@@ -106,44 +108,44 @@ void my_std::binary_search_tree<T>::insert(value_type val)
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::inorder(bool recursive) const
-{
-    if(recursive)
+void my_std::binary_search_tree<T>::inorder(predicate visit, bool iterative) const
+{   
+    if(!iterative)
     {
-        m_inorder_recursive(m_root);
+        m_inorder_recursive(m_root,visit);
     }
     else
     {
-        m_inorder_iterative(m_root);
+        m_inorder_iterative(m_root,visit);
     }
     std::cout << std::endl;
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::preorder(bool recursive) const
+void my_std::binary_search_tree<T>::preorder(predicate visit, bool iterative) const
 {
-    if(recursive)
+    if(!iterative)
     {
-        m_preorder_recursive(m_root);
+        m_preorder_recursive(m_root,visit);
     }
     else
     {
-        m_preorder_iterative(m_root);
+        m_preorder_iterative(m_root,visit);
     }
     std::cout << std::endl;
 }
 
 
 template <typename T>
-void my_std::binary_search_tree<T>::postorder(bool recursive) const
+void my_std::binary_search_tree<T>::postorder(predicate visit, bool iterative) const
 {
-    if(recursive)
+    if(!iterative)
     {
-        m_postorder_recursive(m_root);
+        m_postorder_recursive(m_root,visit);
     }
     else
     {
-        m_postorder_iterative(m_root);
+        m_postorder_iterative(m_root,visit);
     }
     std::cout << std::endl;
 }
@@ -173,6 +175,13 @@ bool my_std::binary_search_tree<T>::contains(value_type val) const
         return true;
     }
     return false;
+}
+
+template <typename T>
+void my_std::binary_search_tree<T>::level_order(predicate visit) const
+{   
+    m_level_order_iterative(m_root,visit);
+    std::cout << std::endl;
 }
 
 template<typename T>
@@ -509,7 +518,6 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_r
         {
             successorParent->m_right = successor->m_right;
         }
-
         delete successor;
     }
     --m_size;
@@ -517,19 +525,19 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_r
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_inorder_recursive(Node* node) const
+void my_std::binary_search_tree<T>::m_inorder_recursive(Node* node, predicate visit) const
 {   
     if(!node)
     {
         return;
     }
-    m_inorder_recursive(node->m_left);
-    std::cout << node->m_val << " ";
-    m_inorder_recursive(node->m_right);
+    m_inorder_recursive(node->m_left,visit);
+    visit(node->m_val);
+    m_inorder_recursive(node->m_right,visit);
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_inorder_iterative(Node* node) const
+void my_std::binary_search_tree<T>::m_inorder_iterative(Node* node, predicate visit) const
 {   
     if(!node)
     {
@@ -544,7 +552,7 @@ void my_std::binary_search_tree<T>::m_inorder_iterative(Node* node) const
             node = node->m_left;
         }
         node = st.top();
-        std::cout << node->m_val << " ";
+        visit(node->m_val);
         st.pop();
         node = node->m_right;
     }
@@ -552,20 +560,20 @@ void my_std::binary_search_tree<T>::m_inorder_iterative(Node* node) const
 
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_preorder_recursive(Node* node) const
+void my_std::binary_search_tree<T>::m_preorder_recursive(Node* node, predicate visit) const
 {   
     if(!node)
     {
         return;
     }
-    std::cout << node->m_val << " ";
-    m_preorder_recursive(node->m_left);
-    m_preorder_recursive(node->m_right);
+    visit(node->m_val);
+    m_preorder_recursive(node->m_left,visit);
+    m_preorder_recursive(node->m_right,visit);
 }
 
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node) const
+void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node, predicate visit) const
 {   
     if(!node)
     {
@@ -576,7 +584,7 @@ void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node) const
     {
         while(node)
         {
-            std::cout << node->m_val << " ";
+            visit(node->m_val);
             st.push(node);
             node = node->m_left;
         }
@@ -587,19 +595,19 @@ void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node) const
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_postorder_recursive(Node* node) const
+void my_std::binary_search_tree<T>::m_postorder_recursive(Node* node, predicate visit) const
 {   
     if(!node)
     {
         return;
     }
-    m_postorder_recursive(node->m_left);
-    m_postorder_recursive(node->m_right);
-    std::cout << node->m_val << " ";
+    m_postorder_recursive(node->m_left,visit);
+    m_postorder_recursive(node->m_right,visit);
+    visit(node->m_val);
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::m_postorder_iterative(Node* node) const
+void my_std::binary_search_tree<T>::m_postorder_iterative(Node* node, predicate visit) const
 {   
     if(!node)
     {
@@ -626,9 +634,36 @@ void my_std::binary_search_tree<T>::m_postorder_iterative(Node* node) const
 
     while(!s2.empty())
     {
-        std::cout << s2.top() << " ";
+        visit(s2.top());
         s2.pop();
     }
+}
+
+
+template <typename T>
+void my_std::binary_search_tree<T>::m_level_order_iterative(Node* node, predicate visit) const
+{
+    if(!node)
+    {
+        return;
+    }
+    std::queue<Node*> q;
+    q.push(node);
+    while(!q.empty())
+    {
+        Node* temp = q.front();
+        q.pop();
+        visit(temp->m_val);
+        if(temp->m_left)
+        {
+            q.push(temp->m_left);
+        }
+        if(temp->m_right)
+        {
+            q.push(temp->m_right);
+        }
+    }
+    std::cout << std::endl;
 }
 
 template <typename T>
@@ -650,32 +685,6 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_g
     {
         return node;
     }
-}
-
-template <typename T>
-void my_std::binary_search_tree<T>::m_level_order_iterative(Node* node) const
-{
-    if(!node)
-    {
-        return;
-    }
-    std::queue<Node*> q;
-    q.push(node);
-    while(!q.empty())
-    {
-        Node* temp = q.front();
-        q.pop();
-        std::cout << temp->m_val << " ";
-        if(temp->m_left)
-        {
-            q.push(temp->m_left);
-        }
-        if(temp->m_right)
-        {
-            q.push(temp->m_right);
-        }
-    }
-    std::cout << std::endl;
 }
 
 template <typename T>
