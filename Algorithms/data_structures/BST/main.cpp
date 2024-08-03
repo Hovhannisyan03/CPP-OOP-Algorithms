@@ -1,19 +1,52 @@
 #include "BST.h"
 #include <iostream>
 
+void add(int &x)
+{
+    x += 5;
+    std::cout << x << " ";    
+}
+
+void sub(int &x)
+{
+    x -= 3;
+    std::cout << x << " ";    
+}
+
+void mul(int &x)
+{
+    x *= 2;
+    std::cout << x << " ";    
+}
+
 int main()
 {
     my_std::binary_search_tree<int> obj;
-    std::cout << obj.get_height() << std::endl;
     obj.insert(60);
     obj.insert(40);
     obj.insert(80);
-
+                                
     std::cout << obj.get_height() << std::endl;
     obj.insert(30);
     obj.insert(50);
     obj.insert(70);
     obj.insert(90);
+
+    obj.inorder(&add);
+    obj.postorder();
+    obj.preorder();
+
+    obj.preorder(&mul);
+    obj.postorder();
+    obj.preorder();
+
+    obj.postorder(&sub);
+    obj.postorder();
+    obj.preorder();
+
+    obj.level_order(&sub);
+    obj.postorder();
+    obj.preorder();
     std::cout << "Size of obj: " << obj.get_number_of_nodes() << std::endl;
 
     my_std::binary_search_tree<int> obj2(obj);
@@ -30,45 +63,22 @@ int main()
     obj.insert(55);
     std::cout << obj.get_height() << std::endl;
 
-    obj.inorder(0);
-
-    obj.preorder();
-    obj.postorder();
+    obj.preorder(&mul);
 
     obj2.inorder();
-
-    obj2.preorder(0);
-
-    obj2.postorder(0);
 
     obj2 = obj;
 
-    obj.inorder(0);
-    obj.preorder();
-    obj.postorder();
+    obj.preorder(&sub);
 
     obj2.inorder();
-    obj2.preorder(0);
-    obj2.postorder(0);
 
     my_std::binary_search_tree<int> obj3 = std::move(obj);
     obj3.insert(412);
 
-    obj.inorder(0);
-    obj.preorder(0);
-    obj.postorder(0);
-
-    obj2.inorder(0);
-    obj2.preorder(0);
-    obj2.postorder(1);
-
-    obj3.inorder(0);
-    obj3.preorder(1);
-    obj3.postorder(0);
+    obj3.postorder();
 
     obj3 = {15,25,3,4,9,7,5,8};
-    obj3.inorder(0);
-    obj3.preorder(1);
-    obj3.postorder(1);
+    obj3.level_order();
 
 }
