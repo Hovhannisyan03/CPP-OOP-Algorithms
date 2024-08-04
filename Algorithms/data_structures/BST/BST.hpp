@@ -1,4 +1,4 @@
-                    #include "BST.h"
+#include "BST.h"
 
 template<typename T>
 my_std::binary_search_tree<T>::Node::Node() : m_val{0}, m_left{nullptr}, m_right{nullptr} {}
@@ -213,20 +213,20 @@ void my_std::binary_search_tree<T>::clear_iterative(Node* node)
     {
         return;
     }
-    std::stack<Node*> s1;
-    s1.push(node);
-    while(!s1.empty())
+    std::queue<Node*> q;
+    q.push(node);
+    while(!q.empty())
     {
-        Node* temp = s1.top();
-        s1.pop();
+        Node* temp = q.front();
+        q.pop();
 
         if(temp->m_left)
         {
-            s1.push(temp->m_left);
+            q.push(temp->m_left);
         }
         if(temp->m_right)
         {
-            s1.push(temp->m_right);
+            q.push(temp->m_right);
         }
         delete temp;
     }
@@ -441,9 +441,9 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_r
         }
         else
         {
-            Node* temp = m_min_recursive(node->m_right);
-            node->m_val = temp->m_val;
-            node->m_right = m_remove_recursive(node->m_right,temp->m_val);
+            Node* successor = m_min_recursive(node->m_right);
+            node->m_val = successor->m_val;
+            node->m_right = m_remove_recursive(node->m_right,successor->m_val);
             --m_size;        
         }
     }
@@ -454,7 +454,6 @@ typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_r
 template <typename T>
 typename my_std::binary_search_tree<T>::Node* my_std::binary_search_tree<T>::m_remove_iterative(Node* node, value_type val)
 {
-
     Node* parent = nullptr;
     Node* current = node;
 
@@ -545,17 +544,18 @@ void my_std::binary_search_tree<T>::m_inorder_iterative(Node* node, predicate vi
         return;
     }
     std::stack<Node*> st;
-    while(node || !st.empty())
+    Node* temp = node;
+    while(temp || !st.empty())
     {
-        while(node)
+        while(temp)
         {
-            st.push(node);
-            node = node->m_left;
+            st.push(temp);
+            temp = temp->m_left;
         }
-        node = st.top();
-        visit(node->m_val);
+        temp = st.top();
+        visit(temp->m_val);
         st.pop();
-        node = node->m_right;
+        temp = temp->m_right;
     }
 }
 
@@ -581,17 +581,18 @@ void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node, predicate v
         return;
     }
     std::stack<Node*> st;
-    while(node || !st.empty())
+    Node* temp = node;
+    while(temp || !st.empty())
     {
-        while(node)
+        while(temp)
         {
-            visit(node->m_val);
-            st.push(node);
-            node = node->m_left;
+            visit(temp->m_val);
+            st.push(temp);
+            temp = temp->m_left;
         }
-        node = st.top();
+        temp = st.top();
         st.pop();
-        node = node->m_right;
+        temp = temp->m_right;
     }
 }
 
