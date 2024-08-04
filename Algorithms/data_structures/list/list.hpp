@@ -86,9 +86,9 @@ list<T>::list(std::initializer_list<value_type> init) : m_head{nullptr}, m_tail{
 }
 
 template <typename T>
-list<T>::list(iterator f, iterator e) : m_head{nullptr}, m_tail{nullptr}
+list<T>::list(iterator f, iterator l) : m_head{nullptr}, m_tail{nullptr}
 {
-    if (f == e) 
+    if (f == l) 
     {
         return; 
     }
@@ -96,7 +96,7 @@ list<T>::list(iterator f, iterator e) : m_head{nullptr}, m_tail{nullptr}
     m_head = new Node(*f); 
     Node* curr = m_head;   
     ++f;
-    while(f != e) 
+    while(f != l) 
     {
         curr->m_next = new Node(*f); 
         curr->m_next->m_prev = curr; 
@@ -386,45 +386,45 @@ typename list<T>::reference list<T>::back()
 }
 
 template <typename T>
-typename list<T>::const_reference list<T>::min() const
-{
-    if(m_head)
-    {
-        Node* max = m_head;
-        Node* curr = m_head->m_next;
-        while(curr)
-        {
-            if(curr->m_data > max->m_data)
-            {
-                max = curr;
-            }
-        }
-        return max->m_data;
-    }
-    throw std::logic_error("List is empty");   
-}
-
-template <typename T>
-typename list<T>::reference list<T>::min() 
-{
-    if(m_head)
-    {
-        Node* max = m_head;
-        Node* curr = m_head->m_next;
-        while(curr)
-        {
-            if(curr->m_data > max->m_data)
-            {
-                max = curr;
-            }
-        }
-        return max->m_data;
-    }
-    throw std::logic_error("List is empty");   
-}
-
-template <typename T>
 typename list<T>::const_reference list<T>::max() const
+{
+    if(m_head)
+    {
+        Node* max = m_head;
+        Node* curr = m_head->m_next;
+        while(curr)
+        {
+            if(curr->m_data > max->m_data)
+            {
+                max = curr;
+            }
+        }
+        return max->m_data;
+    }
+    throw std::logic_error("List is empty");   
+}
+
+template <typename T>
+typename list<T>::reference list<T>::max() 
+{
+    if(m_head)
+    {
+        Node* max = m_head;
+        Node* curr = m_head->m_next;
+        while(curr)
+        {
+            if(curr->m_data > max->m_data)
+            {
+                max = curr;
+            }
+        }
+        return max->m_data;
+    }
+    throw std::logic_error("List is empty");   
+}
+
+template <typename T>
+typename list<T>::const_reference list<T>::min() const
 {
     if(m_head)
     {
@@ -443,7 +443,7 @@ typename list<T>::const_reference list<T>::max() const
 }
 
 template <typename T>
-typename list<T>::reference list<T>::max()
+typename list<T>::reference list<T>::min()
 {
     if(m_head)
     {
