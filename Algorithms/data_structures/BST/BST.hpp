@@ -1,4 +1,4 @@
-#include "BST.h"
+                    #include "BST.h"
 
 template<typename T>
 my_std::binary_search_tree<T>::Node::Node() : m_val{0}, m_left{nullptr}, m_right{nullptr} {}
@@ -329,7 +329,8 @@ typename my_std::binary_search_tree<T>::size_type my_std::binary_search_tree<T>:
     q.push(node);
     while(!q.empty())
     {
-        for(size_type i = 0; i < q.size(); ++i)
+        size_type level = q.size();
+        for(size_type i = 0; i < level; ++i)
         {
             Node* temp = q.front();
             q.pop();
