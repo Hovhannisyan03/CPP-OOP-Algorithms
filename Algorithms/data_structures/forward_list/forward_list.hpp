@@ -258,7 +258,7 @@ bool forward_list<T>::empty() const
 template <typename T>
 void forward_list<T>::resize(size_type s, const_reference init)
 {
-    if(size() >= s)
+    if(size() >= s || !m_head)
     {
         return;
     }  
@@ -272,16 +272,8 @@ void forward_list<T>::resize(size_type s, const_reference init)
     size_type current_size = size();
     while (current_size < s) 
     {
-        if (!curr) 
-        {
-            m_head = new Node(init);
-            curr = m_head;
-        } 
-        else 
-        {
-            curr->m_next = new Node(init);
-            curr = curr->m_next;
-        }
+        curr->m_next = new Node(init);
+        curr = curr->m_next;
         ++current_size;
     }
 }
@@ -584,7 +576,7 @@ void forward_list<T>::unique()
     unique_tmp->m_next = nullptr;
     Node* prev = nullptr;
     while(temp)
-    {
+    {                     
         bool flag = false;
         while(unique_tmp)
         {
