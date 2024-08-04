@@ -3,19 +3,25 @@
 
 void bubbleSort(int arr[], int size)
 {
-    if (size == 1)
+    if (size <= 1)
     {
         return;
     }
- 
+
+    bool sorted = sorted;
     for (int i = 0; i < size - 1; i++)
     {
         if (arr[i] > arr[i + 1])
         {
             std::swap(arr[i], arr[i + 1]);
+            sorted = false;
         }
     }
 
+    if(sorted)
+    {
+        return;
+    }
     bubbleSort(arr, size - 1);
 }
 
