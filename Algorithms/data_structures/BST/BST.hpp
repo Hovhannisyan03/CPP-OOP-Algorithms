@@ -580,22 +580,23 @@ void my_std::binary_search_tree<T>::m_preorder_iterative(Node* node, predicate v
     {
         return;
     }
-    std::stack<Node*> st;
-    Node* temp = node;
-    while(temp || !st.empty())
+    std::stack<Node*> s;
+    s.push(node);
+    while(!s.empty())
     {
-        while(temp)
+        Node* temp = s.top();
+        s.pop();
+        visit(temp->m_val);
+        if(temp->m_right)
         {
-            visit(temp->m_val);
-            st.push(temp);
-            temp = temp->m_left;
+            s.push(temp->m_right);
         }
-        temp = st.top();
-        st.pop();
-        temp = temp->m_right;
+        if(temp->m_left)
+        {
+            s.push(temp->m_left);
+        }
     }
 }
-
 template <typename T>
 void my_std::binary_search_tree<T>::m_postorder_recursive(Node* node, predicate visit) const
 {   
