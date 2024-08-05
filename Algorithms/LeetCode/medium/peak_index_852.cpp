@@ -13,7 +13,7 @@ public:
             }
             else 
             {
-                start = mid + 1;
+                start = mid + 1;//arr[mid] <= arr[mid + 1] -> peak must be to the right, because the array is still increasing
             }
         }
         return start;
