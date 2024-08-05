@@ -21,8 +21,9 @@ public:
         }
         if(fast)
         {
-            slow = slow->next;
-            fast->next = nullptr;
+            ListNode* temp = slow->next;
+            slow->next = nullptr;
+            slow = temp;
         }
         slow = reverse(slow);
         bool flag = true;
