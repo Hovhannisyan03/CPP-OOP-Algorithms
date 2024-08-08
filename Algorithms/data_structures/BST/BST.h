@@ -58,7 +58,7 @@ namespace my_std
             value_type get_root_data() const;
             value_type get_Entry(value_type val) const;
             bool contains(value_type val) const;
-            void level_order(predicate visit = print) const;
+            void level_order(predicate visit = print, bool recursive = false) const;
 
         private:
             Node* m_root;
@@ -92,6 +92,7 @@ namespace my_std
             void m_postorder_iterative(Node* node, predicate visit) const;
 
             void m_level_order_iterative(Node* node, predicate visit) const;
+            void m_level_order_recursive(std::queue<Node*>& q, predicate visit) const;
 
             Node* m_get_Entry_recursive(Node* node, value_type val) const;
             Node* m_get_Entry_iterative(Node* node, value_type val) const;  
