@@ -178,9 +178,22 @@ bool my_std::binary_search_tree<T>::contains(value_type val) const
 }
 
 template <typename T>
-void my_std::binary_search_tree<T>::level_order(predicate visit) const
+void my_std::binary_search_tree<T>::level_order(predicate visit, bool recursive) const
 {   
-    m_level_order_iterative(m_root,visit);
+    if(!recursive)
+    {
+        m_level_order_iterative(m_root,visit);
+    }
+    else
+    {
+        if(!m_root)
+        {
+            return;
+        }
+        std::queue<Node*> q;
+        q.push(m_root);
+        m_level_order_recursive(q,visit);
+    }
     std::cout << std::endl;
 }
 
@@ -667,6 +680,27 @@ void my_std::binary_search_tree<T>::m_level_order_iterative(Node* node, predicat
         }
     }
     std::cout << std::endl;
+}
+
+template <typename T>
+void my_std::binary_search_tree<T>::m_level_order_recursive(std::queue<Node*>& q, predicate visit) const
+{
+    if(q.empty())
+    {
+        return;
+    }
+    Node* current = q.front();
+    q.pop();
+    visit(current->m_val);
+    if(current->m_left)
+    {
+        q.push(current->m_left);
+    }
+    if(current->m_right)
+    {
+        q.push(current->m_right);
+    }
+    m_level_order_recursive(q,visit);
 }
 
 template <typename T>
