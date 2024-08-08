@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 
-int fibonacci(int n, std::map<int,int> map = {})
+int fibonacci(int n, std::map<int,int>& map)
 {
     if(n <= 2)
     {
@@ -15,16 +15,12 @@ int fibonacci(int n, std::map<int,int> map = {})
 }
 
 int main()
-{
-    std::cout << fibonacci(1) << std::endl;
-    std::cout << fibonacci(2) << std::endl;
-    std::cout << fibonacci(3) << std::endl;
-    std::cout << fibonacci(4) << std::endl;
-    std::cout << fibonacci(5) << std::endl;
-    std::cout << fibonacci(6) << std::endl;
-    std::cout << fibonacci(7) << std::endl;
-    std::cout << fibonacci(8) << std::endl;
-    std::cout << fibonacci(9) << std::endl;
-    std::cout << fibonacci(10) << std::endl;
-    std::cout << fibonacci(11) << std::endl;
+{   
+    std::map<int,int> map;
+    std::cout << "Result: " << fibonacci(1, map) << std::endl;
+    std::cout << "Result: " << fibonacci(2, map) << std::endl;
+    std::cout << "Result: " << fibonacci(3, map) << std::endl;
+    std::cout << "Result: " << fibonacci(4, map) << std::endl;
+    std::cout << "Result: " << fibonacci(8, map) << std::endl;
+    std::cout << "Result: " << fibonacci(6, map) << std::endl;
 }
