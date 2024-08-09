@@ -859,7 +859,7 @@ template <typename T>
 typename vector<T>::const_reverse_iterator vector<T>::const_reverse_iterator::operator++(int)
 {
     const_reverse_iterator tmp = *this;
-    ++(*this);
+    --(*this);
     return tmp;
 } 
 
@@ -874,7 +874,7 @@ template <typename T>
 typename vector<T>::const_reverse_iterator vector<T>::const_reverse_iterator::operator--(int)
 {
     const_reverse_iterator tmp = *this;
-    --(*this);
+    ++(*this);
     return tmp;
 } 
 
@@ -993,7 +993,7 @@ template <typename T>
 typename vector<T>::reverse_iterator vector<T>::reverse_iterator::operator++(int)
 {
     reverse_iterator tmp = *this;
-    ++(*this);
+    --(*this);
     return tmp;
 }
 
@@ -1008,7 +1008,7 @@ template <typename T>
 typename vector<T>::reverse_iterator vector<T>::reverse_iterator::operator--(int)
 {
     reverse_iterator tmp = *this;
-    --this->m_ptr;
+    ++this->m_ptr;
     return tmp;
 }
 
