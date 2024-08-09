@@ -911,25 +911,25 @@ bool vector<T>::const_reverse_iterator::operator!=(const const_reverse_iterator&
 template <typename T>
 bool vector<T>::const_reverse_iterator::operator<(const const_reverse_iterator& other) const
 {
-    return m_ptr < other.m_ptr;
+    return !(m_ptr < other.m_ptr);
 }  
 
 template <typename T>
 bool vector<T>::const_reverse_iterator::operator<=(const const_reverse_iterator& other) const
 {
-    return m_ptr <= other.m_ptr;
+    return !(m_ptr <= other.m_ptr);
 }  
 
 template <typename T>
 bool vector<T>::const_reverse_iterator::operator>(const const_reverse_iterator& other) const
 {
-    return m_ptr > other.m_ptr;
+    return !(m_ptr > other.m_ptr);
 }  
 
 template <typename T>
 bool vector<T>::const_reverse_iterator::operator>=(const const_reverse_iterator& other) const
 {
-    return m_ptr >= other.m_ptr;
+    return !(m_ptr >= other.m_ptr);
 }  
 
 template <typename T>
