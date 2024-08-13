@@ -56,10 +56,11 @@ namespace my_std
             void postorder(predicate visit = print, bool iterative = false) const;
             size_type get_number_of_nodes() const;
             value_type get_root_data() const;
-            value_type get_Entry(value_type val) const;
+            Node* get_Entry(value_type val) const;
             bool contains(value_type val) const;
             void level_order(predicate visit = print, bool recursive = false) const;
-
+            Node* get_successor(Node* node) const;
+            Node* get_predecessor(Node* node) const;
         private:
             Node* m_root;
             size_type m_size;
@@ -96,7 +97,7 @@ namespace my_std
 
             Node* m_get_Entry_recursive(Node* node, value_type val) const;
             Node* m_get_Entry_iterative(Node* node, value_type val) const;  
-    };
+   };
 }
 
 #include "BST.hpp"
