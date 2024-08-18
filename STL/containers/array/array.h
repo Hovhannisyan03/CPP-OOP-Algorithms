@@ -57,7 +57,7 @@ namespace my_std
 
             void fill(const_reference val);
             void swap(array& other) noexcept;
-
+	    std::strong_ordering operator<=> (const array& other) const;
         public:
             iterator begin() noexcept;
             iterator end() noexcept;

@@ -201,6 +201,11 @@ void my_std::array<T,N>::swap(array& other) noexcept
     }
 }
 
+template <class T, size_t N>
+std::strong_ordering my_std::array<T,N>::operator<=>(const array& other) const
+{
+    return other.m_arr <=> m_arr;
+}
 // ======================================================== Const Iterator ========================================================
 template <class T, size_t N>
 my_std::array<T,N>::const_iterator::const_iterator(pointer ptr) : m_ptr(ptr) {}

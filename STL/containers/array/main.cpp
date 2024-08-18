@@ -4,18 +4,43 @@ int main()
 {
     const my_std::array<int, 8> arr1 = {1,2,3,4,5,6,7,8};
     my_std::array<int, 8> arr2 = {8,7,6,5,4,3,2,1};
+    my_std::array<int, 8> arr3 = {8,7,6,5,4,3,2,1};
 
+    if(arr2 != arr3)
+    {
+	    std::cout <<"s"; 
+    }
     // for(auto elem : arr2)
     // {
     //     std::cout << elem << " ";
     // }
     // std::cout << std::endl;
 
-    // for(my_std::array<int,8>::const_iterator it = arr2.begin(); it != arr2.end(); it++)
-    // {
-    //     std::cout << *it << " ";
-    // }
-    // std::cout << std::endl;
+    for(my_std::array<int,8>::const_iterator it = arr2.begin(); it != arr2.end(); it++)
+    {
+       std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    for(my_std::array<int,8>::const_reverse_iterator it = arr2.rbegin(); it != arr2.rend(); it++)
+    {
+       std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    for(my_std::array<int,8>::iterator it = arr2.begin(); it != arr2.end(); it++)
+    {
+       std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    for(my_std::array<int,8>::reverse_iterator it = arr2.rbegin(); it != arr2.rend(); it++)
+    {
+       std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+
 
     // for(my_std::array<int,8>::const_reverse_iterator it = arr2.rbegin(); it != arr2.rend(); it++)
     // {
@@ -29,10 +54,10 @@ int main()
     // }
     // std::cout << std::endl;
 
-    for(my_std::array<int,8>::const_reverse_iterator it = arr1.crbegin(); it != arr1.crend(); it = it + 2)
-    {
-        std::cout << *it << " ";
-    }
+    //for(my_std::array<int,8>::const_reverse_iterator it = arr1.crbegin(); it != arr1.crend(); it = it + 2)
+   // {
+    //    std::cout << *it << " ";
+   // }
     // for(int i = 0; i < 8; ++i)
     // {
     //     std::cout << arr2[i] << " ";
