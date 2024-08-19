@@ -28,6 +28,7 @@ my_std::array<T,N>::array(array&& other) noexcept : m_arr{0}, m_size{other.m_siz
     {
         m_arr[i] = other.m_arr[i];
     }
+    other.m_size = 0;    
 }
 
 template <class T, size_t N>
@@ -63,6 +64,7 @@ template <class T, size_t N>
 const my_std::array<T,N>& my_std::array<T,N>::operator=(array&& other) noexcept 
 {
     m_size = other.m_size;
+    other.m_size = 0;    
     for(size_type i = 0; i < N; ++i)
     {
         m_arr[i] = other.m_arr[i];
