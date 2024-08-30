@@ -52,12 +52,14 @@ namespace my_deque
     };
 
     template <typename T, typename U>
-    bool operator==(const DequeAllocator<T>&, const DequeAllocator<U>&) noexcept {
+    bool operator==(const DequeAllocator<T>&, const DequeAllocator<U>&) noexcept 
+{
         return true;
     }
 
     template <typename T, typename U>
-    bool operator!=(const DequeAllocator<T>& lhs, const DequeAllocator<U>& rhs) noexcept {
+    bool operator!=(const DequeAllocator<T>& lhs, const DequeAllocator<U>& rhs) noexcept 
+    {
         return !(lhs == rhs);
     }
 
