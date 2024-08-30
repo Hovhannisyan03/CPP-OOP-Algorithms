@@ -52,14 +52,12 @@ namespace my_deque
     };
 
     template <typename T, typename U>
-    bool operator==(const DequeAllocator<T>&, const DequeAllocator<U>&) noexcept 
-{
+    bool operator==(const DequeAllocator<T>&, const DequeAllocator<U>&) noexcept {
         return true;
     }
 
     template <typename T, typename U>
-    bool operator!=(const DequeAllocator<T>& lhs, const DequeAllocator<U>& rhs) noexcept 
-    {
+    bool operator!=(const DequeAllocator<T>& lhs, const DequeAllocator<U>& rhs) noexcept {
         return !(lhs == rhs);
     }
 
@@ -144,11 +142,10 @@ namespace my_deque
             void clear();
 
             iterator insert(const_iterator pos, const value_type& value);
-            // iterator insert(const_iterator pos, value_type&& value);
             // iterator insert(const_iterator pos,size_type count, const value_type& value);
             // template<class InputIt>
             // iterator insert(const_iterator pos, InputIt first, InputIt last);
-            // iterator insert(const_iterator pos, std::initializer_list<T> ilist);
+            iterator insert(const_iterator pos, std::initializer_list<T> init);
 
 
             // template< class... Args >
