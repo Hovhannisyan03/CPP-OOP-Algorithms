@@ -143,8 +143,7 @@ namespace my_deque
 
             iterator insert(const_iterator pos, const value_type& value);
             iterator insert(const_iterator pos,size_type count, const value_type& value);
-            // template<class InputIt>
-            // iterator insert(const_iterator pos, InputIt first, InputIt last);
+            iterator insert(const_iterator pos, const_iterator first, const_iterator last);
             iterator insert(const_iterator pos, std::initializer_list<T> init);
 
 
