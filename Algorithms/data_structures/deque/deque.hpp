@@ -339,9 +339,7 @@ namespace my_deque
         } 
         else if(m_right && (pos.m_ptr >= m_right) && (pos.m_ptr < m_right + m_r_size)) 
         {   
-            std::cout << pos.m_ptr << " " << m_right << std::endl;
             size_type offset = pos.m_ptr - m_right;
-            std::cout << offset << std::endl;
             for (size_type i = offset; i < m_r_size - 1; ++i) 
             {
                 m_right[i] = m_right[i + 1]; 
@@ -368,7 +366,7 @@ namespace my_deque
                 last = erase(last);
             }
         }
-        return iterator(first.m_ptr,first.m_left, first.m_right);
+        return iterator(first.m_ptr >= m_left ? first.m_ptr : first.m_ptr + 1,first.m_left, first.m_right);
     }
 
     template <typename T, class Allocator>
@@ -422,6 +420,17 @@ namespace my_deque
             pos = insert(pos,elem);
         }
         return iterator(pos.m_ptr,pos.m_left,pos.m_right);
+    }
+
+    template <typename T, class Allocator>
+    typename deque<T,Allocator>::iterator deque<T,Allocator>::insert(const_iterator pos, const_iterator first, const_iterator last)
+    {
+        while(first != last)
+        {
+            pos = insert(pos, *first);
+            ++first;
+        }
+        return iterator(pos.m_ptr, m_left, m_right);
     }
 
     template <typename T, class Allocator>
