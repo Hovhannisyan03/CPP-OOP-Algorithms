@@ -3,7 +3,7 @@
 namespace my_graph
 {
     template <typename T>
-    Graph<T>::Graph(size_type size) : m_adjacency_matrix(size,std::vector<bool>(size,0)) {}
+    Graph<T>::Graph(size_type size) : m_adjacency_matrix(size,std::vector<bool>(size,false)) {}
 
     template<typename T>
     void Graph<T>::add_edge(value_type u, value_type v)
