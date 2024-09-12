@@ -17,6 +17,7 @@ public:
             {
                 word += s[j++];
             }
+            
             ++j;
             if(!char_and_word.contains(pattern[i]))
             {
