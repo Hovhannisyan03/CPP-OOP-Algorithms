@@ -251,8 +251,96 @@ namespace my_graph
         }
 
         return q.size();
+    }   
+
+    template <typename T>
+    std::vector<typename Graph<T>::value_type> Graph<T>::get_shortest_path(value_type u, value_type v) const
+    {
+        std::vector<bool> visited(m_adjacency_list.size(),false);
+        std::queue<value_type> q;
+        std::vector<value_type> parent(m_adjacency_list.size(), - 1);
+        q.push(u);
+        visited[u] = true;
+        while(!q.empty())
+        {
+            value_type vertex = q.front();
+            q.pop();
+
+            if (vertex == v) 
+            {
+                break;
+            }
+
+            for(const auto& elem : m_adjacency_list[vertex])
+            {
+                if(!visited[elem])
+                {
+                    visited[elem] = true;
+                    parent[elem] = vertex;
+                    q.push(elem);
+                }
+            }
+        }
+    
+        return m_get_shortest_path_helper(parent,v);
     }
 
+    template <typename T>
+    std::vector<std::vector<typename Graph<T>::value_type>> Graph<T>::get_all_possible_paths(value_type u, value_type v) const
+    {
+        std::vector<bool> visited(m_adjacency_list.size(), false);
+        std::vector<value_type> path;
+        std::vector<std::vector<value_type>> all_paths;
+        
+        m_get_all_possible_paths_helper(u, v, path, all_paths, visited);
+        return all_paths;
+
+    }
+
+    template <typename T>
+    void Graph<T>::m_get_all_possible_paths_helper(value_type u, value_type v, std::vector<value_type>& path, std::vector<std::vector<value_type>>& all_paths, std::vector<bool>& visited) const
+    {
+        visited[u] = true;
+        path.push_back(u);
+        if(u == v)
+        {
+            all_paths.push_back(path);
+            path.pop_back();
+            visited[u] = false;
+            return;
+        }
+        for(const auto& elem : m_adjacency_list[u])
+        {
+            if(!visited[elem])
+            {
+                
+                visited[elem] = true;
+                m_get_all_possible_paths_helper(elem,v,path,all_paths,visited);
+            }
+        }
+        visited[u] = false;
+        path.pop_back();
+    }
+
+
+    template <typename T>
+    std::vector<typename Graph<T>::value_type> Graph<T>::m_get_shortest_path_helper(std::vector<value_type>& parent, value_type v) const
+    {    
+        if(parent[v] == -1)
+        {
+            return {};
+        }
+        std::vector<value_type> path;
+        while(parent[v] != -1)
+        {       
+            path.push_back(v);
+            v = parent[v];
+        }
+        path.push_back(v);
+
+        std::reverse(path.begin(), path.end());
+        return path;
+    }
 
     //Uncomment for directed graph
     // template <typename T>
