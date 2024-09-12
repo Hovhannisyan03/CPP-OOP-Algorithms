@@ -37,8 +37,6 @@ namespace my_std
             RB_tree();
             ~RB_tree();
             RB_tree(const_reference val);
-
-        public:
     
         public:
             void insert(value_type value);
@@ -46,7 +44,7 @@ namespace my_std
             void preorder() const;
             void postorder() const;
             void level_order() const;
-            void remove(value_type val);
+            void RB_delete(value_type val);
             const RB_Node* get_min() const;
             const RB_Node* get_max() const;
             size_type get_height() const;
@@ -59,8 +57,8 @@ namespace my_std
             RB_Node* m_root;
 
             void m_insert_fix_up(RB_Node* newNode);
-            void m_remove(RB_Node* root, value_type val);
-            void m_remove_fix_up(RB_Node* x);
+            void m_RB_delete(RB_Node* root, value_type val);
+            void m_RB_delete_fix_up(RB_Node* x);
             void m_transplant(RB_Node* parent, RB_Node* with);
             RB_Node* m_left_rotate(RB_Node* node);
             RB_Node* m_right_rotate(RB_Node* node);
