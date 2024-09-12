@@ -121,9 +121,9 @@ namespace my_std
     }
 
     template <typename T>
-    void RB_tree<T>::remove(value_type val)
+    void RB_tree<T>::RB_delete(value_type val)
     {
-        m_remove(m_root,val);
+        m_RB_delete(m_root,val);
     }
 
     template <typename T>
@@ -165,7 +165,7 @@ namespace my_std
     }
 
     template <typename T>
-    void RB_tree<T>::m_remove(RB_Node* root, value_type val)
+    void RB_tree<T>::m_RB_delete(RB_Node* root, value_type val)
     {
         RB_Node* temp = root;
         while(temp != NIL)
@@ -187,45 +187,45 @@ namespace my_std
         RB_Node* del = temp;
         color del_color = del->m_color;
         RB_Node* x = NIL;
-        if(temp->m_left == NIL)
+        if(del->m_left == NIL)//Case 1: the node to delete has no left child
         {
-            x = temp->m_right;
-            m_transplant(temp, temp->m_right);
-        }
-        else if(temp->m_right == NIL)
-        {
-            x = temp->m_left;
-            m_transplant(temp, temp->m_left);
-        }
-        else
-        {
-            del = m_get_min(temp->m_right);
-            del_color = del->m_color;
             x = del->m_right;
-            if(del->m_parent == temp && x != NIL)
+            m_transplant(del, del->m_right);
+        }
+        else if(del->m_right == NIL)//Case 2: the node to delete has no right child
+        {
+            x = del->m_left;
+            m_transplant(del, del->m_left);
+        }
+        else//Case 3: the node to delete has both children
+        {
+            RB_Node* node_to_be_del = m_get_min(del->m_right);
+            del_color = node_to_be_del->m_color;
+            x = node_to_be_del->m_right;
+            if(node_to_be_del->m_parent == del)
             {
-                x->m_parent = del;
+                x->m_parent = node_to_be_del;
             }   
             else 
             {
-                m_transplant(del,del->m_right);
-                del->m_right = temp->m_right;
-                del->m_right->m_parent = del;
+                m_transplant(node_to_be_del,node_to_be_del->m_right);
+                node_to_be_del->m_right = del->m_right;
+                node_to_be_del->m_right->m_parent = node_to_be_del;
             }
-            m_transplant(temp,del);
-            del->m_left = temp->m_left;
-            del->m_left->m_parent = del;
-            del->m_color = temp->m_color;
-            if(del_color == color::BLACK)
-            {
-                m_remove_fix_up(x);
-            }
+            m_transplant(del,node_to_be_del);
+            node_to_be_del->m_left = del->m_left;
+            node_to_be_del->m_left->m_parent = node_to_be_del;
+            node_to_be_del->m_color = del->m_color;
         }
-        delete temp;
+        if(del_color == color::BLACK)
+        {
+            m_RB_delete_fix_up(x);
+        }
+        delete del;
     }
 
     template <typename T>
-    void RB_tree<T>::m_remove_fix_up(RB_Node* x)
+    void RB_tree<T>::m_RB_delete_fix_up(RB_Node* x)
     {   
         while(x != m_root && x->m_color == color::BLACK)
         {
@@ -233,11 +233,12 @@ namespace my_std
             {
                 RB_Node* sibling = x->m_parent->m_right;
                 if(sibling->m_color == color::RED) // Case 1: x's sibling is red 
-                {
+                {   
                     sibling->m_color = color::BLACK;
                     x->m_parent->m_color = color::RED;
                     m_left_rotate(x->m_parent);
                     sibling = x->m_parent->m_right;
+
                 }
                 if(sibling->m_left->m_color == color::BLACK && sibling->m_right->m_color == color::BLACK) // Case 2: sibling's children are black
                 {
@@ -246,7 +247,7 @@ namespace my_std
                 }
                 else
                 {
-                    if(sibling->m_right->m_color == color::BLACK)// Case 3 : sibling's right child is black
+                    if(sibling->m_right->m_color == color::BLACK) // Case 3 : sibling's right child is black, left child is red
                     {
                         sibling->m_left->m_color = color::BLACK;
                         sibling->m_color = color::RED;
@@ -262,7 +263,7 @@ namespace my_std
                     x = m_root;
                 }
             }
-            else// Same as above, mirror case
+            else// Mirror case
             {
                 RB_Node* sibling = x->m_parent->m_left;
                 if(sibling->m_color == color::RED)
@@ -295,6 +296,26 @@ namespace my_std
             }
         }
         x->m_color = color::BLACK;
+    }
+
+    template <typename T>
+    void RB_tree<T>::m_transplant(RB_Node* parent, RB_Node* with)
+    {
+        if(parent->m_parent == NIL)
+        {
+            m_root = with;
+        }
+        else if(parent == parent->m_parent->m_left)
+        {
+            parent->m_parent->m_left = with;
+        }
+        else
+        {
+            parent->m_parent->m_right = with;
+        }
+        
+        with->m_parent = parent->m_parent;
+        
     }
 
         
@@ -340,26 +361,6 @@ namespace my_std
             std::cout << "NIL" << std::endl;
 
         }
-    }
-
-    template <typename T>
-    void RB_tree<T>::m_transplant(RB_Node* parent, RB_Node* with)
-    {
-        if(parent->m_parent == NIL)
-        {
-            m_root = with;
-        }
-        else if(parent == parent->m_parent->m_left)
-        {
-            parent->m_parent->m_left = with;
-        }
-        else
-        {
-            parent->m_parent->m_right = with;
-        }
-        
-        with->m_parent = parent->m_parent;
-        
     }
 
     template<class T>
