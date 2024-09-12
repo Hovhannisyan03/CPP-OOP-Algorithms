@@ -187,7 +187,7 @@ namespace my_graph
     }
 
     template <typename T>
-    typename Graph<T>::value_type Graph<T>::getCountNthLevelWithDFS(value_type v, value_type level) const
+    typename Graph<T>::size_type Graph<T>::getCountNthLevelWithDFS(value_type v, size_type level) const
     {
         if(v >= m_adjacency_list.size())
         {
@@ -195,14 +195,14 @@ namespace my_graph
         }
 
         std::vector<bool> visited(m_adjacency_list.size(), false);
-        value_type count = 0;
+        size_type count = 0;
 
         m_getCountNthLevelWithDFS_helper(v, 0, level, count, visited);
         return count;
     }
 
     template <typename T>
-    void Graph<T>::m_getCountNthLevelWithDFS_helper(value_type v, value_type current_level, value_type level, value_type& count, std::vector<bool>& visited) const
+    void Graph<T>::m_getCountNthLevelWithDFS_helper(value_type v, size_type current_level, size_type level, size_type& count, std::vector<bool>& visited) const
     {
         visited[v] = true;
 
@@ -225,7 +225,7 @@ namespace my_graph
     }
 
     template <typename T>
-    typename Graph<T>::value_type Graph<T>::getCountNthLevel(value_type v, value_type level) const
+    typename Graph<T>::size_type Graph<T>::getCountNthLevel(value_type v, size_type level) const
     {
         std::vector<bool> visited(m_adjacency_list.size(), false);
         std::queue<value_type> q;
