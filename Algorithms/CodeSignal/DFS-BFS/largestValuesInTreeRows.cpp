@@ -38,6 +38,7 @@ vector<int> solution(Tree<int> * t)
                 q.push(temp->right);
             }
         }
+        
         result.push_back(max);
     }
     return result;
