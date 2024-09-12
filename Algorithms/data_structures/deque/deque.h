@@ -108,8 +108,6 @@ namespace my_deque
             void assign(std::initializer_list<value_type> init); 
 
         public:
-            friend const_reference const_iterator::operator[](size_type pos) const;
-
             reference at(size_type pos);
             const_reference at(size_type pos) const;
 
@@ -229,7 +227,7 @@ class my_deque::deque<T,Allocator>::const_iterator
         const_reference operator*() const;
         const_pointer operator->() const;
 
-        const_reference operator[](size_type pos) const;
+        // const_reference operator[](size_type pos) const;
 
         bool operator==(const const_iterator& other) const;      
         bool operator!=(const const_iterator& other) const;      
