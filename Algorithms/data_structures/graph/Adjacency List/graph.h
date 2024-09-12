@@ -26,8 +26,8 @@ namespace my_graph
             value_type getCountNthLevelWithDFS(value_type v, value_type level) const;
             // void transpose();//Uncomment for undirected graph
             
-            // std::vector<value_type> get_shortest_path(value_type u, value_type v);
-            // std::vector<std::vector<value_type>> get_all_possible_paths(value_type src, value_type dest) const;
+            std::vector<value_type> get_shortest_path(value_type u, value_type v) const;
+            std::vector<std::vector<value_type>> get_all_possible_paths(value_type u, value_type v) const;
 
         private:
             std::vector<std::vector<value_type>> m_adjacency_list;
@@ -38,7 +38,9 @@ namespace my_graph
             void m_BFS_Iter_helper(value_type v, std::vector<bool>& visited) const;
 
             void m_getCountNthLevelWithDFS_helper(value_type v, value_type currLevel, value_type level, value_type& count, std::vector<bool>& visited) const;
-            // void dfsAllPaths(value_type src, value_type dest, std::vector<value_type>& tmp, std::vector<std::vector<value_type> >& res, std::vector<bool>& visit) const;
+
+            std::vector<value_type> m_get_shortest_path_helper(std::vector<value_type>& parent, value_type v) const;
+            void m_get_all_possible_paths_helper(value_type u, value_type v, std::vector<value_type>& path, std::vector<std::vector<value_type> >& all_paths, std::vector<bool>& visited) const;
     };
 }
 #include "graph.hpp"
