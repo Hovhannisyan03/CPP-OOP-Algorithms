@@ -22,8 +22,8 @@ namespace my_graph
             void DFS_I() const;
             void BFS_R() const;
             void BFS_I() const;
-            value_type getCountNthLevel(value_type v, value_type level) const;
-            value_type getCountNthLevelWithDFS(value_type v, value_type level) const;
+            size_type getCountNthLevel(value_type v, size_type level) const;
+            size_type getCountNthLevelWithDFS(value_type v, size_type level) const;
             // void transpose();//Uncomment for undirected graph
             
             std::vector<value_type> get_shortest_path(value_type u, value_type v) const;
@@ -37,7 +37,7 @@ namespace my_graph
             void m_BFS_Rec_helper(std::queue<value_type> q, std::vector<bool>& visited) const;
             void m_BFS_Iter_helper(value_type v, std::vector<bool>& visited) const;
 
-            void m_getCountNthLevelWithDFS_helper(value_type v, value_type currLevel, value_type level, value_type& count, std::vector<bool>& visited) const;
+            void m_getCountNthLevelWithDFS_helper(value_type v, size_type current_level, size_type level, size_type& count, std::vector<bool>& visited) const;
 
             std::vector<value_type> m_get_shortest_path_helper(std::vector<value_type>& parent, value_type v) const;
             void m_get_all_possible_paths_helper(value_type u, value_type v, std::vector<value_type>& path, std::vector<std::vector<value_type> >& all_paths, std::vector<bool>& visited) const;
