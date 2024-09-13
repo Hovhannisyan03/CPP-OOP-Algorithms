@@ -29,6 +29,8 @@ namespace my_graph
             std::vector<value_type> get_shortest_path(value_type u, value_type v) const;
             std::vector<std::vector<value_type>> get_all_possible_paths(value_type src, value_type dest) const;
 
+            bool is_Cycle() const;
+
         private:
             std::vector<std::vector<bool>> m_adjacency_matrix;
             void m_DFS_Rec_helper(value_type v, std::vector<bool>& visited) const;
@@ -37,6 +39,8 @@ namespace my_graph
             std::vector<value_type> m_get_shortest_path_helper(std::vector<value_type>& parent, value_type v) const;
             void m_getCountNthLevelWithDFS_helper(value_type v, size_type current_level, size_type level, size_type& count, std::vector<bool>& visited) const;
             void m_get_all_possible_paths_helper(value_type u, value_type v, std::vector<value_type>& path, std::vector<std::vector<value_type>>& all_paths, std::vector<bool>& visited) const;
+            bool m_is_Cycle_DFS(value_type u, std::vector<bool>& visited, value_type parent) const;
+    
     };
 }
 #include "graph.hpp"
