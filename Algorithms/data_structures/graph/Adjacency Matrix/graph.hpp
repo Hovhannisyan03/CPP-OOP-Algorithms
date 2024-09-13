@@ -336,4 +336,44 @@ namespace my_graph
     //     m_adjacency_matrix = new_graph;
     // }
 
+    template <typename T>
+    bool Graph<T>::is_Cycle() const
+    {
+        std::vector<bool> visited(m_adjacency_matrix.size(),false);
+
+        for (value_type i = 0; i < visited.size(); ++i)
+        {
+            if (!visited[i]) 
+            {
+                if (m_is_Cycle_DFS(i, visited, -1)) 
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    template <typename T>
+    bool Graph<T>::m_is_Cycle_DFS(value_type u, std::vector<bool>& visited, value_type parent) const
+    {
+        visited[u] = true;
+
+        for(size_type v = 0; v < m_adjacency_matrix.size(); ++v)
+        {
+            if(m_adjacency_matrix[u][v] && !visited[v])
+            {
+                if(m_is_Cycle_DFS(v,visited,u))
+                {
+                    return true;
+                }
+            }
+            else if(m_adjacency_matrix[u][v] && v != parent)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
