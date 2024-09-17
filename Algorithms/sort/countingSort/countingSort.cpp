@@ -11,7 +11,7 @@ void countingSort(int* arr, int size)
         }
     }
     
-    int *count = new int[max + 1]{0};
+    int count[max + 1] = {0};
 
     for(int i = 0; i < size; ++i)
     {
@@ -22,7 +22,7 @@ void countingSort(int* arr, int size)
         count[i] += count[i - 1];
     } 
         
-    int* output = new int[size];
+    int output[size];
 
 
     for(int i = size - 1; i >= 0; --i)
@@ -35,9 +35,6 @@ void countingSort(int* arr, int size)
     {
         arr[i] = output[i];
     }
-
-    delete[] count;
-    delete[] output;
 }
 
 int main()
